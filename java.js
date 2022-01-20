@@ -23,6 +23,7 @@ const rock_div = document.getElementById("rock");
 const paper_div = document.getElementById("paper");
 const scissors_div = document.getElementById("scissors");
 const end_game_p = document.querySelector(".end_game > p");
+const restart_button = document.getElementById("restart_button");
 
 //function which computer choose a choice at random from an array
 function getComputerChoice() {
@@ -60,13 +61,20 @@ function game(userChoice) {
 //Function to display player as winner and add score
 function win(userChoice, compChoice) {
     userScore++;
-    userScore_span.innerHTML = userScore; //DOM updates users core
+    userScore_span.innerHTML = userScore; //DOM updates users score
     compScore_span.innerHTML = computerScore; 
-    result_p.innerHTML = userChoice + " beats " + compChoice + ". You Win! 🔥"
+    
     //When user wins, add a green glow to the div the user clicked
     document.getElementById(userChoice).classList.add('green-glow');
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('green-glow')}, 300);
+    //When player reaches 5 points to win
+    if (userScore > 5) {
+        result_p.innerHTML = userChoice + " beats " + compChoice + ". You Win! 🔥";
+    } else if (userScore === 5) {
+        end_game_p.innerHTML = "Game over, you win! You reached 5 points!"
+        finishGame();
+    }
 }
 
 //Function to display computer as winner and add score
@@ -74,11 +82,17 @@ function lose(userChoice, compChoice) {
     computerScore++;
     userScore_span.innerHTML = userScore; //DOM updates users core
     compScore_span.innerHTML = computerScore; 
-    result_p.innerHTML = compChoice + " beats " + userChoice + ". You Lose! 😭"
     //When user loses, add a red glow to the div the user clicked
      document.getElementById(userChoice).classList.add('red-glow');
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('red-glow')}, 300);
+    //When computer reaches 5 points
+    if (computerScore > 5) {
+        result_p.innerHTML = compChoice + " beats " + userChoice + ". You Lose! 😭"
+    } else if (computerScore === 5) {
+        end_game_p.innerHTML = "Game over, you lost! Computer reached 5 points!"
+        finishGame();
+    }
 }
 
 //Function to display draw message
@@ -107,16 +121,19 @@ function main() {
 
 main();
 
-//5 score limit
-function endGame(userScore, computerScore) {
-    if (userScore === 5) {
-        end_game_p.innerHTML = "You reached 5 points! You win!";
-    } else (computerScore === 5); {
-        end_game_p.innerHTML = "Computer reached 5 points! You lost!";
-    }
+function finishGame() {
+    userScore = 0;
+    computerScore = 0;
+    userScore_span.innerHTML = userScore; //DOM updates users score
+    compScore_span.innerHTML = computerScore;
+    result_p.innerHTML = " ";
 }
 
+function restartButton() {
+    restart_button.addEventListener('click', function() {
+        finishGame("restart");
+        end_game_p.innerHTML = " ";
+    })
+}
 
-
-// end_game_p.innerHTML = "YOU WIN"
-
+restartButton();

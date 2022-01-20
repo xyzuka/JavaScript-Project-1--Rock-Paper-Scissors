@@ -122,3 +122,16 @@ img {
     box-shadow: 0 0 10px #ac9b09;
     border-radius: 50%;
 }
+
+#restart_button {
+    font-size: 20px;
+    font-family: Bebas Neue, sans-serif;
+    display: flex;
+    padding: 10px 10px;
+    margin: 20px auto;
+}
+
+#restart_button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
