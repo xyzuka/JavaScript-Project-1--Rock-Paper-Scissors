@@ -64,6 +64,15 @@ body {
     font-weight: bold;
 }
 
+.end_game > p {
+    font-size: 50px;
+    font-family: Bebas Neue, sans-serif;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
 .choices {
     display: flex;
     flex-direction: row;
@@ -85,8 +94,6 @@ img {
 .choice:hover {
     cursor: pointer;
     transform: scale(1.1);
-    border-radius: 50%;
-    box-shadow: 0 0 0 0.5rem #ca4238;
 }
 
 #action-message {
@@ -97,3 +104,21 @@ img {
     font-weight: bold;
 }
 
+/* Styles for when user wins or loses game */
+.green-glow {
+    border: 4px solid #4dcc7d;
+    box-shadow: 0 0 10px #2f9154;
+    border-radius: 50%;
+}
+
+.red-glow {
+    border: 4px solid #ca4238;
+    box-shadow: 0 0 10px #9c2f27;
+    border-radius: 50%;
+}
+
+.yellow-glow {
+    border: 4px solid #ddca20;
+    box-shadow: 0 0 10px #ac9b09;
+    border-radius: 50%;
+}
