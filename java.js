@@ -1,20 +1,17 @@
 //Rock Paper Scissors - JavaScript
 
-//Game will be playing against a computer - this is based off a function called computerPlay
-//computerPlay will randomly return either 'Rock', 'Paper', 'Scissors'
-
 /* Algorithm
     1. Computer generates RPS at random
-    2. Console displays selection
-    3. Player enters selection
-    4. Console displays selection
-    5. Compare - decide winner of the round
+    2. Player selects RPS 
+    3. Game logic will compare who wins
+    4. Winner will gain a point
+    5. Whoever reaches 5 points first, wins
 */
 
 //Base scores
 let userScore = 0;
 let computerScore = 0;
-//Caching the DOM - scoring variables for future use
+//Caching the DOM - storing IDs and classes into variables for DOM manipulation
 const userScore_span = document.getElementById("user-score"); //DOM Variables in a span tag
 const compScore_span = document.getElementById("comp-score"); //DOM Variables in a span tag
 const scoreBoard_div = document.querySelector(".score-board"); //DOM Variable in the div tag
@@ -25,19 +22,9 @@ const scissors_div = document.getElementById("scissors");
 const end_game_p = document.querySelector(".end_game > p");
 const restart_button = document.getElementById("restart_button");
 
-//function which computer choose a choice at random from an array
-function getComputerChoice() {
-    //Array of choices for computer to choose from
-    let choices = ["rock", "paper", "scissors"]; 
-    let randomNumber = Math.floor(Math.random() * 3);
-    return choices[randomNumber];
-}
-
-//function that takes in user selection and compares with computer choice
+//function that takes in userChoice and compares with computer choice to determine if win, loss, or draw
 function game(userChoice) {
     const computerChoice = getComputerChoice();
-    console.log("player chose " + userChoice);
-    console.log("comp chose " + computerChoice);
     //game logic
     switch (userChoice + computerChoice) {
         case "rockscissors":
@@ -58,7 +45,15 @@ function game(userChoice) {
     }
 }
 
-//Function to display player as winner and add score
+//function which computer chooses either RPS at random from an array
+function getComputerChoice() {
+    //Array of choices for computer to choose from
+    let choices = ["rock", "paper", "scissors"]; 
+    let randomNumber = Math.floor(Math.random() * 3);
+    return choices[randomNumber];
+}
+
+//function to run when player wins
 function win(userChoice, compChoice) {
     userScore++;
     userScore_span.innerHTML = userScore; //DOM updates users score
@@ -68,7 +63,8 @@ function win(userChoice, compChoice) {
     document.getElementById(userChoice).classList.add('green-glow');
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('green-glow')}, 300);
-    //When player reaches 5 points to win
+    
+    //If statement for when either player or comp reaches 5 points
     if (userScore < 5) {
         result_p.innerHTML = userChoice + " beats " + compChoice + ". You Win! 🔥";
     } else if (userScore === 5) {
@@ -77,16 +73,18 @@ function win(userChoice, compChoice) {
     }
 }
 
-//Function to display computer as winner and add score
+//function to run when computer wins
 function lose(userChoice, compChoice) {
     computerScore++;
-    userScore_span.innerHTML = userScore; //DOM updates users core
-    compScore_span.innerHTML = computerScore; 
+    compScore_span.innerHTML = computerScore; //DOM updates comps core
+    userScore_span.innerHTML = userScore;
+
     //When user loses, add a red glow to the div the user clicked
      document.getElementById(userChoice).classList.add('red-glow');
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('red-glow')}, 300);
-    //When computer reaches 5 points
+    
+    //If statement for when either player or comp reaches 5 points
     if (computerScore < 5) {
         result_p.innerHTML = compChoice + " beats " + userChoice + ". You Lose! 😭"
     } else if (computerScore === 5) {
@@ -121,6 +119,7 @@ function main() {
 
 main();
 
+//function to run when the game is over - resetting everything
 function finishGame() {
     userScore = 0;
     computerScore = 0;
@@ -129,6 +128,7 @@ function finishGame() {
     result_p.innerHTML = " ";
 }
 
+//function to run when the replay button is clicked
 function restartButton() {
     restart_button.addEventListener('click', function() {
         finishGame("restart");
