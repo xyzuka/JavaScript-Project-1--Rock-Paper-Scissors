@@ -69,11 +69,11 @@ function win(userChoice, compChoice) {
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('green-glow')}, 300);
     //When player reaches 5 points to win
-    if (userScore > 5) {
+    if (userScore < 5) {
         result_p.innerHTML = userChoice + " beats " + compChoice + ". You Win! 🔥";
     } else if (userScore === 5) {
         end_game_p.innerHTML = "Game over, you win! You reached 5 points!"
-        finishGame();
+        document.body.style.backgroundColor = "#2f9154";
     }
 }
 
@@ -87,11 +87,11 @@ function lose(userChoice, compChoice) {
     //Animates the green glow 
     setTimeout(function() {document.getElementById(userChoice).classList.remove('red-glow')}, 300);
     //When computer reaches 5 points
-    if (computerScore > 5) {
+    if (computerScore < 5) {
         result_p.innerHTML = compChoice + " beats " + userChoice + ". You Lose! 😭"
     } else if (computerScore === 5) {
         end_game_p.innerHTML = "Game over, you lost! Computer reached 5 points!"
-        finishGame();
+        document.body.style.backgroundColor = "#9c2f27";
     }
 }
 
@@ -133,6 +133,7 @@ function restartButton() {
     restart_button.addEventListener('click', function() {
         finishGame("restart");
         end_game_p.innerHTML = " ";
+        document.body.style.backgroundColor = "#24272E";
     })
 }
 
